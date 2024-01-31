@@ -9,6 +9,7 @@ templates = Jinja2Templates(directory="templates")
 async def main(request: Request):
      return templates.TemplateResponse(request=request, name="index.html", context={"name":"효나"})
 
-@app.get("/hello")
-async def hello():
-    return {"앙농"}
+@app.get("/hello/{name}", response_class=HTMLResponse)
+async def hello(request: Request, name):
+    words = f'당신의 이름은 {name} 안농 반가워'
+    return templates.TemplateResponse(request=request, name="hello.html", context={"name":words})
